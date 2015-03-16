@@ -3,6 +3,7 @@ var gutil = require('gulp-util');
 var less = require('gulp-less');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
+var clean = require('gulp-clean');
 
 var paths = {
   src: {
@@ -12,6 +13,7 @@ var paths = {
     views: './client/views/'
   },
   dist: {
+    public: './public',
     css: './public/css',
     js: './public/js'
   }
@@ -42,6 +44,11 @@ gulp.task('less', function(){
 
 gulp.task('css', function(){
   
+});
+
+gulp.task('build', function(){
+  return gulp.src(paths.dist.public)
+    .pipe(clean());
 });
 
 gulp.task('watch', function(){

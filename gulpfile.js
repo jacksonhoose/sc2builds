@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var stylus = require('gulp-stylus');
+var less = require('gulp-less');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 
@@ -8,7 +8,7 @@ var paths = {
   src: {
     bower: './client/bower_componenets',
     js: './client/js',
-    stylus: './client/stylus',
+    less: './client/less',
     views: './client/views/'
   },
   dist: {
@@ -33,9 +33,9 @@ gulp.task('browserify', function(){
     .pipe(gulp.dest(paths.dist.js))
 });
 
-gulp.task('stylus', function(){
-  return gulp.src(paths.src.stylus + '/app.styl')
-    .pipe(stylus())
+gulp.task('less', function(){
+  return gulp.src(paths.src.less + '/app.less')
+    .pipe(less())
     .on('error', handleError)
     .pipe(gulp.dest(paths.dist.css));
 });
@@ -45,8 +45,8 @@ gulp.task('css', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(paths.src.stylus + '/**/*', ['stylus']);
+  gulp.watch(paths.src.less + '/**/*', ['less']);
   gulp.watch(paths.src.js + '/**/*', ['browserify']);
 });
 
-gulp.task('default', ['browserify', 'stylus', 'watch']);
+gulp.task('default', ['browserify', 'less', 'watch']);

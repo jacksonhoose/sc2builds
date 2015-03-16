@@ -19,6 +19,10 @@ var Signup = require('./components/signup');
 /* Builds */
 var Build = require('./components/build');
 
+/* Dashboard */
+var Dashboard = require('./components/dashboard');
+var DashboardHome = require('./components/dashboard/dashboardHome');
+
 var routes = (
   <Route name="sc2builds" path="/" handler={App}>
     <DefaultRoute name="index" handler={Home} />
@@ -29,6 +33,16 @@ var routes = (
 
     {/* Public Build Routes */}
     <Route name="build" path="build/:buildId" handler={Build} />
+
+    {/* Dashboard Routes */}
+    <Route name="dashboard" path="dashboard" handler={Dashboard}>
+      {/* 
+        Dashboard can show owned builds, builds commented on, 
+        recent comments on builds 
+        Profile Information
+      */}
+      <DefaultRoute name="dashboardHome" handler={DashboardHome} />
+    </Route>
 
     <NotFoundRoute name="notFound" handler={NotFound} />
   </Route>

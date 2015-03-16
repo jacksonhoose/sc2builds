@@ -5,16 +5,18 @@ var RouteHandler = Router.RouteHandler;
 var Login = React.createClass({
   render: function(){
     return (
-      <div>
-        <div>Login</div>
-        <div>
-          <form className="form" action="/api/auth/login" method="POST">
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" />
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" />
-            <button type="submit">Login</button>
-          </form>
+      <div className="container">
+        <div className="col-sm-12 sm-centered">
+          <div>Login</div>
+          <div>
+            <form className="form" action="/api/auth/login" method="POST">
+              <label htmlFor="username">Username</label>
+              <input type="text" className="form-control" name="username" id="username" />
+              <label htmlFor="password">Password</label>
+              <input type="password" className="form-control" name="password" id="password" />
+              <button type="submit" className="btn btn-default">Login</button>
+            </form>
+          </div>
         </div>
       </div>
     );

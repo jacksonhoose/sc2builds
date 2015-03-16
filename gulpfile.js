@@ -4,6 +4,7 @@ var less = require('gulp-less');
 var browserify = require('gulp-browserify');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
+var runSequence = require('run-sequence');
 
 var paths = {
   src: {
@@ -46,9 +47,13 @@ gulp.task('css', function(){
   
 });
 
-gulp.task('build', function(){
+gulp.task('clean', function(){
   return gulp.src(paths.dist.public)
     .pipe(clean());
+});
+
+gulp.task('build', function(){
+  runSequence('clean', 'browserify', 'less');
 });
 
 gulp.task('watch', function(){

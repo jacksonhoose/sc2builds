@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
+var Link = Router.Link;
 
 var Header = React.createClass({
   render: function(){
@@ -36,8 +37,8 @@ var Header = React.createClass({
             </ul>*/}
 
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Signup</a></li>
+              <li><Link to="login">Login</Link></li>
+              <li><Link to="signup">Signup</Link></li>
             </ul>
           </div>
         </div>

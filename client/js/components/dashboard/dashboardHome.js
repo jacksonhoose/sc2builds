@@ -5,7 +5,11 @@ var RouteHandler = Router.RouteHandler;
 var DashboardHome = React.createClass({
   render: function(){
     return (
-      <div>Dashboard Home</div>
+      <div className="row">
+        <div className="col-md-12">
+          Home
+        </div>
+      </div>
     );
   }
 });

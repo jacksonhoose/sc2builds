@@ -1,8 +1,20 @@
+var db = require('../../db');
 var checkit = require('checkit');
-var Promise = require('bluebird');
-var bcrypt = Promise.promisifyAll(require('bcrypt'));
 
-var User = bookshelf.Model.extend({
+var Promise = require('bluebird');
+var bcrypt = require('bcrypt');
+var genSalt = Promise.promisify(bcrypt.genSalt);
+var hash = Promise.promisify(bcrypt.hash);
+var compare = Promise.promisify(bcrypt.compare);
+
+var Comment = require('./commentModel');
+var Build = require('./buildModel');
+
+var User = db.Model.extend({
+
+  tableName: 'users',
+
+  hasTimestamps: true,
 
   initialize: function(){
     this.on('saving', this.validateSave);
@@ -12,20 +24,18 @@ var User = bookshelf.Model.extend({
   validateSave: function(){
     // validate model on save
     return checkit({
-      username: ['required'],
-      email: ['required', 'email'],
-      password: ['required']
+      username: ['required']
     }).run(this.attributes);
   },
 
   hashPassword: function(){
     var password = this.get('password');
-    var self = this;
-    return bcrypt.genSalt(10).then(function(salt){
-      return bcrypt.hash(password, salt);
+
+    return genSalt(10).then(function(salt){
+      return hash(password, salt);
     }).then(function(hash){
-      self.set('password', hash);
-    });
+      this.set('password', hash);
+    }.bind(this));
   },
 
   comments: function(){
@@ -38,11 +48,19 @@ var User = bookshelf.Model.extend({
 
 }, {  
 
-  login: Promise.method(function(email, password){
-    if(!email || !password) throw new Error('Email and password are both required.');
-    return new this({ email: email.toLowerCase().trim() }).fetch({ require: true }).tap(function(user){
-      return bcrypt.compare(user.get('password'), password);
+  login: Promise.method(function(username, password){
+    if(!username || !password) throw new Error('Username and password are both required.');
+    return new this({ username: username }).fetch({ require: true }).then(function(user){
+      return compare(password, user.get('password')).then(function(match){
+        if(match){
+          return user;
+        } else {
+          return false;
+        }
+      })
     });
   })
 
 });
+
+module.exports = User;

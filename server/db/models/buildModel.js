@@ -1,6 +1,10 @@
-var Build = bookshelf.Model.extend({
+var db = require('../../db');
+
+var Build = db.Model.extend({
 
   tableName: 'builds',
+
+  hasTimestamps: true,
 
   initialize: function(){
     this.on('saving', this.validateSave);
@@ -19,8 +23,14 @@ var Build = bookshelf.Model.extend({
     return this.belongsTo(User);
   },
 
+  steps: function(){
+    return this.hasMany(Step);
+  },
+
   comments: function(){
     return this.hasMany(Comment);
   }
 
 });
+
+module.exports = Build;

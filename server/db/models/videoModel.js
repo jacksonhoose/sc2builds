@@ -1,8 +1,8 @@
 var db = require('../../db');
 
-var Comment = db.Model.extend({
+var Video = bookshelf.Model.extend({
 
-  tableName: 'comments',
+  tableName: 'videos',
 
   hasTimestamps: true,
 
@@ -29,4 +29,4 @@ var Comment = db.Model.extend({
 
 });
 
-module.exports = Comment;
+module.exports = Video;

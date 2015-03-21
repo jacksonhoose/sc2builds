@@ -1,8 +1,8 @@
 var db = require('../../db');
 
-var Comment = db.Model.extend({
+var Step = db.Model.extend({
 
-  tableName: 'comments',
+  tableName: 'steps',
 
   hasTimestamps: true,
 
@@ -27,6 +27,10 @@ var Comment = db.Model.extend({
     return this.belongsTo(Build);
   }
 
+  // comments: function(){
+  //   return this.hasMany(Comment);
+  // }
+
 });
 
-module.exports = Comment;
+module.exports = Step;

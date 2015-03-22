@@ -2,13 +2,8 @@ var User = require('../../db/models/userModel');
 var Users = require('../../db/collections/userCollection');
 
 module.exports.list = function(req, res, next){
-  // if limit is in query string and its 
-  // less than 25 user it otherwise limit to 12
-  var limit = (req.query.limit && req.query.limit <= 25) 
-              ? parseInt(req.query.limit, 10) : 12;
-
-  var offset = req.query.offset 
-              ? parseInt(req.query.offset, 10) : 0;
+  var limit = req.limit;
+  var offset = req.offset;
 
   User.collection().query(function(query){
     // provide limiting and offset query params
@@ -21,6 +16,9 @@ module.exports.list = function(req, res, next){
 
 };
 
+module.exports.create = function(req, res, next){
+  res.json({ message: 'create a user' });
+};
 
 module.exports.show = function(req, res, next){
 

@@ -15,6 +15,8 @@ module.exports.list = function(req, res, next){
     return query.limit(limit).offset(offset);
   }).fetch().then(function(users){
     res.json({ users: users });
+  }).catch(function(err){
+    res.json({ message: 'Error querying users' });
   });
 
 };

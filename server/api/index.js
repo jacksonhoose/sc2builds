@@ -8,6 +8,7 @@ module.exports = function(app){
   require('./auth')(router);
   require('./user')(router);
   require('./build')(router);
+  require('./comment')(router);
 
   // mount router to /api
   app.use('/api', router);

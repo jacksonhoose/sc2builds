@@ -1,5 +1,16 @@
+var Build = require('../../db/models/buildModel');
+
 module.exports.list = function(req, res, next){
-  res.json({ message: 'Show all builds' });
+
+  // {
+  //   username: 
+  //   limit:
+  //   comments:
+  //   offset:
+  // }
+
+  // Build.forge().limit(12).fetch().then(function(results){
+  // });
 };
 
 module.exports.show = function(req, res, next){

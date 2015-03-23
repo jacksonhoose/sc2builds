@@ -1,5 +1,9 @@
 var db = require('../../db');
 
+var Step = require('./stepModel');
+var User = require('./userModel');
+var Comment = require('./commentModel');
+
 var Build = db.Model.extend({
 
   tableName: 'builds',
@@ -26,17 +30,17 @@ var Build = db.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User, 'user_id');
+    return this.belongsTo('User', 'user_id');
   },
 
   steps: function(){
-    return this.hasMany(Step, 'build_id');
+    return this.hasMany('Step', 'build_id');
   },
 
   comments: function(){
-    return this.hasMany(Comment, 'build_id');
+    return this.hasMany('Comment', 'build_id');
   }
 
 });
 
-module.exports = Build;
+module.exports = db.model('Build', Build);

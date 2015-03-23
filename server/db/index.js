@@ -6,10 +6,13 @@ var knex = require('knex')({
     password : 'root',
     database : 'sc2builds-dev',
     charset  : 'utf8'
-  }
+  },
+  debug: true
 });
 
 var bookshelf = require('bookshelf')(knex);
+
+bookshelf.plugin('registry');
 
 require('./schema')(knex);
 

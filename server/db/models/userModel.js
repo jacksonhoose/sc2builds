@@ -37,11 +37,11 @@ var User = db.Model.extend({
   },
 
   comments: function(){
-    this.hasMany(Comment, 'user_id');
+    return this.hasMany('Comment');
   },
 
   builds: function(){
-    this.hasMany(Build, 'user_id');
+    return this.hasMany('Build');
   }
 
 }, {  
@@ -61,9 +61,4 @@ var User = db.Model.extend({
 
 });
 
-var Users = db.Collection.extend({
-  model: User
-});
-
-
-module.exports = User;
+module.exports = db.model('User', User);

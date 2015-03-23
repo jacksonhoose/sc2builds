@@ -65,9 +65,9 @@ module.exports.destroy = function(req, res, next){
 
 module.exports.comments = function(req, res, next){
   var userId = req.params.userId;
-  
+
   User.forge({
-    id: req.params.userId
+    id: userId
   }).fetch({
     withRelated: ['comments']
   }).then(function(user){
@@ -89,7 +89,7 @@ module.exports.builds = function(req, res, next){
   var userId = req.params.userId;
 
   User.forge({
-    id: req.params.userId
+    id: userId
   }).fetch({
     withRelated: ['builds']
   }).then(function(user){

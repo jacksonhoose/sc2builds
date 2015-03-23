@@ -1,4 +1,6 @@
 var db = require('../../db');
+var User = require('./userModel');
+var Build = require('./buildModel');
 
 var Step = db.Model.extend({
 
@@ -20,11 +22,11 @@ var Step = db.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User, 'user_id');
+    return this.belongsTo('User', 'user_id');
   },
 
   build: function(){
-    return this.belongsTo(Build, 'build_id');
+    return this.belongsTo('Build', 'build_id');
   }
 
   // comments: function(){
@@ -33,4 +35,4 @@ var Step = db.Model.extend({
 
 });
 
-module.exports = Step;
+module.exports = db.model('Step', Step);

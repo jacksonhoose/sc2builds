@@ -1,4 +1,6 @@
 var db = require('../../db');
+var User = require('./userModel');
+var Build = require('./buildModel');
 
 var Video = bookshelf.Model.extend({
 
@@ -20,13 +22,13 @@ var Video = bookshelf.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User, 'user_id');
+    return this.belongsTo('User', 'user_id');
   },
 
   build: function(){
-    return this.belongsTo(Build, 'build_id');
+    return this.belongsTo('Build', 'build_id');
   }
 
 });
 
-module.exports = Video;
+module.exports = db.model('Video', Video);

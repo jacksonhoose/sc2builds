@@ -22,13 +22,13 @@ var Comment = db.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User, 'user_id');
+    return this.belongsTo('User', 'user_id');
   },
 
   build: function(){
-    return this.belongsTo(Build, 'build_id');
+    return this.belongsTo('Build', 'build_id');
   }
 
 });
 
-module.exports = Comment;
+module.exports = db.model('Comment', Comment);

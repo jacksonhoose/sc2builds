@@ -6,16 +6,11 @@ module.exports = function(app){
     
     // if limit is in query string and its 
     // less than 25 user it otherwise limit to 12
-    if(req.query.limit){
-      req.limit = (req.query.limit && req.query.limit <= 25) 
-                  ? parseInt(req.query.limit, 10) : 12;
-    }
+    req.limit = (req.query.limit && req.query.limit <= 25) 
+                ? parseInt(req.query.limit, 10) : 12;
 
     // parse offset if its specified
-    if(req.query.offset){
-      req.offset = req.query.offset 
-                  ? parseInt(req.query.offset, 10) : 0;
-    }
+    req.offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
     next();
   });
   

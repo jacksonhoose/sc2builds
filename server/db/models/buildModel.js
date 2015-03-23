@@ -6,6 +6,12 @@ var Build = db.Model.extend({
 
   hasTimestamps: true,
 
+  defaults: function(){
+    return {
+      published: 0
+    };
+  },
+
   initialize: function(){
     this.on('saving', this.validateSave);
   },
@@ -20,15 +26,15 @@ var Build = db.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User);
+    return this.belongsTo(User, 'user_id');
   },
 
   steps: function(){
-    return this.hasMany(Step);
+    return this.hasMany(Step, 'build_id');
   },
 
   comments: function(){
-    return this.hasMany(Comment);
+    return this.hasMany(Comment, 'build_id');
   }
 
 });

@@ -20,11 +20,11 @@ var Step = db.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User);
+    return this.belongsTo(User, 'user_id');
   },
 
   build: function(){
-    return this.belongsTo(Build);
+    return this.belongsTo(Build, 'build_id');
   }
 
   // comments: function(){

@@ -11,8 +11,8 @@ module.exports = function(router){
     .put(userController.update)
     .delete(userController.destroy);
 
-  router.get('/users/:userId/comments', userController.listComments);
-  router.get('/users/:userId/builds', userController.listBuilds);
+  router.get('/users/:userId/comments', userController.comments);
+  router.get('/users/:userId/builds', userController.builds);
 
   // router.get('/users', userController.list);
   // router.get('/users/:userId', userController.show);

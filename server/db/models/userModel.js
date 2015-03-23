@@ -1,6 +1,5 @@
 var db = require('../../db');
 var checkit = require('checkit');
-
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt');
 var genSalt = Promise.promisify(bcrypt.genSalt);
@@ -30,7 +29,6 @@ var User = db.Model.extend({
 
   hashPassword: function(){
     var password = this.get('password');
-
     return genSalt(10).then(function(salt){
       return hash(password, salt);
     }).then(function(hash){
@@ -39,11 +37,11 @@ var User = db.Model.extend({
   },
 
   comments: function(){
-    this.hasMany(Comment);
+    this.hasMany(Comment, 'user_id');
   },
 
   builds: function(){
-    this.hasMany(Build);
+    this.hasMany(Build, 'user_id');
   }
 
 }, {  
@@ -62,5 +60,10 @@ var User = db.Model.extend({
   })
 
 });
+
+var Users = db.Collection.extend({
+  model: User
+});
+
 
 module.exports = User;

@@ -1,4 +1,6 @@
 var db = require('../../db');
+var User = require('./userModel');
+var Build = require('./buildModel');
 
 var Comment = db.Model.extend({
 
@@ -20,11 +22,11 @@ var Comment = db.Model.extend({
   },
 
   user: function(){
-    return this.belongsTo(User);
+    return this.belongsTo(User, 'user_id');
   },
 
   build: function(){
-    return this.belongsTo(Build);
+    return this.belongsTo(Build, 'build_id');
   }
 
 });

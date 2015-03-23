@@ -9,7 +9,12 @@ module.exports.list = function(req, res, next){
     // provide limiting and offset query params
     return query.limit(limit).offset(offset);
   }).fetch().then(function(users){
-    res.json({ users: users });
+    res.status(200).json({ 
+      error: false, 
+      data: users,
+      limit: limit,
+      offset: offset
+    });
   }).catch(function(err){
     res.json({ message: 'Error querying users' });
   });
@@ -58,12 +63,45 @@ module.exports.destroy = function(req, res, next){
 
 };
 
-module.exports.listComments = function(req, res, next){
+module.exports.comments = function(req, res, next){
   var userId = req.params.userId;
-  res.json({ message: 'List User ' + userId + ' Comments'});
+  
+  User.forge({
+    id: req.params.userId
+  }).fetch({
+    withRelated: ['comments']
+  }).then(function(user){
+    res.status(200).json({
+      error: false,
+      data: user
+    });
+  }).otherwise(function(err){
+    console.log('error', err);
+    res.json({
+      error: true,
+      data: err
+    });
+  });
+
 };
 
-module.exports.listBuilds = function(req, res, next){
+module.exports.builds = function(req, res, next){
   var userId = req.params.userId;
-  res.json({ message: 'List User ' + userId + ' Builds'});
+
+  User.forge({
+    id: req.params.userId
+  }).fetch({
+    withRelated: ['builds']
+  }).then(function(user){
+    res.status(200).json({
+      error: false,
+      data: user
+    });
+  }).otherwise(function(err){
+    res.json({
+      error: true,
+      data: err
+    });
+  });
+
 };

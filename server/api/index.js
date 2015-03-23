@@ -11,6 +11,7 @@ module.exports = function(app){
 
     // parse offset if its specified
     req.offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
+    
     next();
   });
   

@@ -8,7 +8,9 @@ module.exports.list = function(req, res, next){
   User.collection().query(function(query){
     // provide limiting and offset query params
     return query.limit(limit).offset(offset);
-  }).fetch().then(function(users){
+  }).fetch({
+    columns: ['username', 'profile']
+  }).then(function(users){
     res.status(200).json({ 
       error: false, 
       data: users,
@@ -16,7 +18,10 @@ module.exports.list = function(req, res, next){
       offset: offset
     });
   }).catch(function(err){
-    res.json({ message: 'Error querying users' });
+    res.json({ 
+      error: true, 
+      data: 'Error querying users' 
+    });
   });
 
 };
@@ -26,11 +31,14 @@ module.exports.create = function(req, res, next){
 };
 
 module.exports.show = function(req, res, next){
+  var userId = req.params.userId;
 
   User.forge({
-    id: req.params.userId
-  }).fetch().then(function(user){
-    res.json({ user: user.omit('password') });
+    id: userId
+  }).fetch({
+    columns: ['username', 'profile']
+  }).then(function(user){
+    res.json({ error: false, data: user });
   }).catch(function(err){
     res.json({ message: 'User not found' });
   });
@@ -59,7 +67,9 @@ module.exports.update = function(req, res, next){
 module.exports.destroy = function(req, res, next){
   var userId = req.params.userId;
 
-  res.json({ message: 'Destroy a user and associated resources '});
+  User.forge({ id: userId }).destroy().then(function(user){
+    res.json({message: user});
+  })
 
 };
 
@@ -69,6 +79,7 @@ module.exports.comments = function(req, res, next){
   User.forge({
     id: userId
   }).fetch({
+    columns: ['username', 'profile'],
     withRelated: ['comments']
   }).then(function(user){
     res.status(200).json({
@@ -76,7 +87,6 @@ module.exports.comments = function(req, res, next){
       data: user
     });
   }).otherwise(function(err){
-    console.log('error', err);
     res.json({
       error: true,
       data: err
@@ -91,6 +101,7 @@ module.exports.builds = function(req, res, next){
   User.forge({
     id: userId
   }).fetch({
+    columns: ['username', 'profile'],
     withRelated: ['builds']
   }).then(function(user){
     res.status(200).json({

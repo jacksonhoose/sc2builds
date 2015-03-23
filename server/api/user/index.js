@@ -1,4 +1,5 @@
 var userController = require('./userController');
+var _ = require('lodash');
 
 module.exports = function(router){
 
@@ -7,6 +8,16 @@ module.exports = function(router){
     .post(userController.create);
 
   router.route('/users/:userId')
+    .all(function(req, res, next){
+      // var userQuery = {};
+      // if(isNaN(parseInt(req.params.userId, 10))){
+      //   userQuery.username = req.params.userId;
+      // } else {
+      //   userQuery.id = req.params.userId;
+      // }
+      // req.userQuery = userQuery;
+      // next();
+    })
     .get(userController.show)
     .put(userController.update)
     .delete(userController.destroy);
@@ -14,13 +25,5 @@ module.exports = function(router){
   router.get('/users/:userId/comments', userController.comments);
   router.get('/users/:userId/builds', userController.builds);
 
-  // router.get('/users', userController.list);
-  // router.get('/users/:userId', userController.show);
-  // router.put('/users/:userId', userController.update);
-  // router.delete('/users/:userId', userController.update);
-  // list user comments
-  // router.get('/users/:userId/comments', userController.listComments);
-  // list user builds
-  // router.get('/users/:userId/builds', userController.listBuilds);
 
 };
